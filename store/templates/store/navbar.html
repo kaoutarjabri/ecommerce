@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style1.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <a class="navlogo" href="{% url 'home' %}"><img src="{% static 'images/runtostorelarge.png' %}" alt="logo" height="50px"></a>
+        <nav>
+            <ul class="nav-links">
+                <li><a class="nav" href="{% url 'store' %}">Store</a></li>
+                <li><a href="">about</a></li>
+            </ul>
+        </nav>
+          <form method="get" class="search-container">
+            {{ myfilter.form}}
+              <button type="submit" class="search-btn">
+                <i class="fas fa-search"></i>      
+              </button>
+          </form>
+          <!-- <span id="cart-total" class="cart-total">{{wishedItems}}</span> -->
+        <a class="nav" href="{% url 'cart' %}"><img id="cart-icon" src="{% static 'images/cart.png' %}" alt="" class="cart-icon"></a>
+        <span id="cart-total" class="cart-total">{{cartItems}}</span>
+        {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}"><img src="{{request.user.customer.image.url}}" alt="" class="profile-pic"></a>
+        <div class="burger-menu-container">
+            <div class="burger-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+        </div>
+        <div class="burger-menu-items">
+            <a href="{% url 'profile' %}">View Profile</a>
+            <a href="{% url 'cart' %}">Cart</a>
+            <a href="{% url 'add_product' %}">Add</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+        {%else%}
+        <a href="{% url 'login' %}">Login</a>
+        {%endif%}
+    </header>
+</body>
+</html>
+
+<style>
+    /* Style for the burger menu container */
+    /* .burger-menu-container {
+      position:relative;
+    } */
+
+    /* Style for the burger menu icon */
+    .burger-icon {
+      display: inline-block;
+      margin: 5px;
+      width: 30px;
+      height: 20px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    /* Style for the burger menu icon bars */
+    .burger-icon span {
+      display: block;
+      position: absolute;
+      height: 3px;
+      width: 100%;
+      background: #fff;
+      border-radius: 9px;
+      opacity: 1;
+      left: 0;
+      transform: rotate(0deg);
+      transition: all 0.2s ease-out;
+    }
+
+    /* Style for the first bar of the burger menu icon */
+    .burger-icon span:nth-child(1) {
+      top: 0px;
+    }
+
+    /* Style for the second bar of the burger menu icon */
+    .burger-icon span:nth-child(2) {
+      top: 8px;
+    }
+
+    /* Style for the third bar of the burger menu icon */
+    .burger-icon span:nth-child(3) {
+      top: 16px;
+    }
+
+    /* Style for the active state of the burger menu icon */
+    .burger-icon.active span:nth-child(1) {
+      top: 8px;
+      transform: rotate(45deg);
+    }
+
+    /* Style for the active state of the burger menu icon */
+    .burger-icon.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    /* Style for the active state of the burger menu icon */
+    .burger-icon.active span:nth-child(3) {
+      top: 8px;
+      transform: rotate(-45deg);
+    }
+
+    /* Style for the burger menu items container */
+    .burger-menu-items {
+      position: fixed;
+      right: 0;
+      top: 60px;
+      z-index: 998;
+      width: 200px;
+      height: 0;
+      overflow: hidden;
+      transition: all 0.2s ease-out;
+    }
+
+    /* Style for the active state of the burger menu items container */
+    .burger-menu-items.active {
+      height: auto;
+    }
+
+    /* Style for the burger menu item links */
+    .burger-menu-items a {
+      display: block;
+      margin: 5px;
+      border-radius: 30px;
+      padding: 10px 20px;
+      color: #fff;
+      text-decoration: none;
+      background-image: linear-gradient(to bottom right, #3e8a4c, #4b6b53);
+    }
+    .profile-pic{
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+            inset -4px -4px 6px 0 rgba(255,255,255,.2),
+            inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+    }
+  </style>
+  </head>
+  <body>
+    <script>
+        // Add click event listener to the burger icon
+        document.querySelector('.burger-icon').addEventListener('click', function() {
+          // Toggle the active state of the burger icon
+          this.classList.toggle('active');
+          // Toggle the active state of the burger menu items container
+          document.querySelector('.burger-menu-items').classList.toggle('active');
+        });
+      </script>
+
+     

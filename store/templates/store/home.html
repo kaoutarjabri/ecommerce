@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="main.css">
+    <title>Run to Store</title>
+</head>
+<body>
+    <ul>
+        <img src="{% static 'images/runtostorelarge.png' %}" alt="logo" class="logo">
+        <li class="others"><img src="{%static 'images/account.png'%}" alt="se connecter" class="account"><a href="{% url 'login' %}"> Account </a></li>
+        <li class="log"><a href="">about</a></li>
+        <li><a class="nav" href="{% url 'store' %}">Store</a></li>
+
+    </ul>
+    
+    <div class="desc">
+    <p>Don't walk <br>Run to !!!</p>
+    <img src="{%static 'images/runtostore3D.png'%}" alt="" width="600px">
+    </div>
+
+</body>
+</html>
+<style>
+body{
+    background-color: #C0C0C0;
+    background-size: cover;
+}
+li{
+    font-family: Arial, Helvetica, sans-serif;
+    list-style: none;
+    display: inline;
+    
+    float: right;
+    margin: 10px;
+}
+.log{
+    float: right;
+    margin-right: 480px;
+    color: black !important;
+}
+
+.logo{
+    width: auto;
+    height: 50px;
+    background: none ;
+    margin: 0;
+}
+.desc{
+    display: flex;
+    color: #204020;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 70px;
+    margin: 20px 10% 0 10%;
+}
+.desc img{
+    margin-left: 10%;
+}
+
+.btn-hover {
+    float: right;
+    margin-right: 100px;
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:hover {
+    background-position: 100% 0;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+    outline: none;
+}
+
+.btn-hover.color-7 {
+    background-image: linear-gradient(to right, #204020, #3c5e3c, #556d55, #707670);
+    box-shadow: 0 4px 15px 0 rgba(35, 89, 48, 0.75);
+}
+/* button end */
+
+.account{
+    width: 10px;
+    height: auto;
+}
+
+</style>

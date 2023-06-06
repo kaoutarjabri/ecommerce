@@ -1,0 +1,64 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+{% include 'store/navbar.html' %}
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit" name="submit" id="" value="GO">
+            </form>
+            {{form.errors}}
+        </div>
+    </div>
+</div>
+
+<style>
+/* Form container */
+form {
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Form fields */
+form input[type="text"],
+form input[type="email"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+/* Form label */
+form label {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Form submit button */
+form input[type="submit"] {
+  background-color: #3e8a4c;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Form submit button hover effect */
+form input[type="submit"]:hover {
+  background-color: #204020;
+}
+</style>
+{% endblock %}
