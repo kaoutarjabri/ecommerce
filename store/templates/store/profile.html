@@ -1,0 +1,165 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Profile</title>
+  </head>
+  <body>
+    {% include 'store/navbar.html' %}
+    <div class="containe">
+      <div class="user-profile">
+        <h1>{{request.user.customer.name}}</h1>
+        <img src="{{request.user.customer.image.url}}" alt="Profile Picture">
+      </div>
+      <div class="update-form">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form}}
+          <button type="submit" class="submit-button">Update</button>
+        </form>
+      </div>
+    </div>
+    <div class="title"><h1>My products</h1><a class="add" href="{% url 'add_product' %}">+</a></div>
+
+    <div class="store-container">
+      {% for product in products %}
+
+      <div class="col">
+        <a  href="{% url 'product' product.id %}">
+            <div class="thumbnail">
+                <img class="img-product" src="{{product.imageURL}}" alt="">
+                <!-- <a href="" class="wishitem" data-product={{product.id}} data-action="add"><img src="{% static 'images/heart-solid.svg' %}" alt="" width="20px"></a> -->
+            </div>
+        </a>
+            <div class="box-store product">
+                <h4 style="float: right; color:red;">{{product.price|floatformat:2}}$</h4>
+                <h6 style="font-size: large;"><strong>{{product.name}}</strong></h6>
+                <hr>
+                <p>{{product.description|slice:":100" }}</p>
+
+                <form method="POST" action="{% url 'delete_product' product.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="trash"><img src="{% static 'images/trash.png' %}" alt="" width="30px"></button>
+              </form>
+            
+            </div>
+        
+    </div>
+  
+  {% endfor %}
+    </div>
+  
+  </body>
+</html>
+<style>
+    body{
+        background-color:  rgb(223, 223, 223);
+    }
+    /* Style for the user profile container */
+    .user-profile {
+      background-color: white;
+      align-items: center;
+      margin: 10px;
+      padding: 20px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+
+    /* Style for the profile picture */
+    .user-profile img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border-color: rgba(0,0,0,0.9);
+      border-style: solid;
+      margin-right: 20px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+
+    /* Style for the update form container */
+    .update-form {
+      background-color: white;
+      width: 70%;
+      height: 350px;
+      margin: 10px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+
+    /* Style for the form input fields */
+    input {
+      margin-bottom: 10px;
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    /* Style for the submit button */
+    .submit-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* Hover effect for the submit button */
+    .submit-button:hover {
+      background-color: #45a049;
+    }
+
+    /* Style for the container that holds the user profile and update form */
+    .containe {
+      display: flex;
+      justify-content: space-between;
+    }
+    .trash{
+      position: relative;
+      width: 40px;
+      height: 40px;
+      bottom: 340px;
+      left: 20px;
+      border-radius: 50%;
+      border: solid rgb(0, 0, 0);
+      float: right;
+      cursor: pointer;
+    }
+    .trash:hover{
+      background-color: rgb(71, 0, 0);
+    }
+    .add{
+      width: 50px;
+      height: 50px;
+      margin-left: 50px;
+      border-radius: 50%;
+      background-image: linear-gradient(to bottom right, #3e8a4c, #637066);
+      color: #fff;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .add:hover{
+      background-image: linear-gradient(to bottom right, #637066, #3e8a4c);
+    }
+    .title{
+      font-size: 20px;
+      margin: 30px;
+      align-items: center;
+      display: flex;
+    }
+  </style>
+
+  
+{% endblock content %}

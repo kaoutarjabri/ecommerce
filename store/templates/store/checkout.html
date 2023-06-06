@@ -1,0 +1,95 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+{% include 'store/navbar.html' %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="box-element" id="form-wrapper">
+                <form id="form">
+                    <div class="user-info">
+                        <div class="form-field">
+                            <input type="text" class="form-control" name="name" placeholder="name..." required>
+                        </div>
+                        <div class="form-field">
+                            <input type="email" class="form-control" name="name" placeholder="email..." required>
+                        </div>
+                    </div>
+                    <div id="shipping-info">
+                        <hr>
+                        <p>Shipping information :</p>
+                        <hr>
+                        <div class="form-field">
+                            <input type="text" class="form-control" name="adress" placeholder="adress..." required>
+                        </div>
+                        <div class="form-field">
+                            <input type="text" class="form-control" name="city" placeholder="city..." required>
+                        </div>
+                        <div class="form-field">
+                            <input type="text" class="form-control" name="state" placeholder="state..." required>
+                        </div>
+                        <div class="form-field">
+                            <input type="text" class="form-control" name="zipcode" placeholder="Zip code..." required>
+                        </div>
+                        <div class="form-field">
+                            <input type="text" class="form-control" name="country" placeholder="country..." required>
+                        </div>
+                    </div>
+                    <hr>
+                    <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                </form>
+            </div>
+            <br>
+            <div class="box-element hidden" id="payment-info">
+                <small>Paypal options</small>
+                <button id="make-payment">make payment</button>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="box-element">
+                <a href="{% url 'cart' %}" class="btn btn-outline-dark">&#x2190; Back to cart</a>
+                <hr>
+                <h3>Order summary</h3>
+                <hr>
+                {% for item in items %}
+                <div class="cart-row">
+                    <div style="flex: 2;"><img class="row-image" src="{{item.product.imageURL}}" alt=""></div>
+                    <div style="flex: 2;"><p>{{item.product.name}}</p></div>
+                    <div style="flex: 1;"><P>{{item.product.price}}$</P></div>
+                    <div style="flex: 1;"><p>{{item.quantity}}</p></div>
+                </div>
+                {% endfor %}
+                <h5>Items: {{order.get_cart_items}}</h5>
+                <h5>Total: {{order.get_cart_total|floatformat:2}}$</h5>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var shipping = '{{order.shipping}}'
+        if(shipping == 'False'){
+            document.getElementById('shipping-info').innerHTML=''
+        }
+        if(user != 'AnonymousUser'){
+            document.getElementById('user-info').innerHTML=''
+        }
+        if(shipping == 'False' && user !='AnonymousUser'){
+            //hide the form if user is logged in and shipping is false
+            document.getElementById('form-wrapper').classList.add("hidden")
+            //show payment if logged in user wants to buy a digital item
+            document.getElementById('payment-info').classList.remove("hidden")
+        }
+        var form = document.getElementById('form')
+        form.addEventListener('submit', function(e){
+            e.preventDefault()
+            console.log('Form submitted...')
+            document.getElementById('form-button').classList.add('hidden')
+            document.getElementById('payment-info').classList.remove('hidden')
+        })
+        document.getElementById('make-payment').addEventListener('click', function(e){
+            submitFormData()
+        })
+        function submitFormData(){
+            console.log('payment button clicked')
+        }
+    </script>
+{% endblock content %}

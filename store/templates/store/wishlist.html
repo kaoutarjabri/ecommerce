@@ -1,0 +1,61 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="{% static 'css/main.css' %}"> -->
+    <title>Document</title>
+</head>
+<!-- <body>
+    {% include 'store/navbar.html' %}
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-element">
+                <a class="btn btn-outline-dark" href="{% url 'store' %}">&#x2190;Continue shopping</a>
+                <br>
+                <hr>
+                <table class="table">
+                    <h1>wish list</h1>
+
+                </table>
+            </div>
+            <br>
+            <div class="box-cart">
+                <div class="cart-row">
+                    <div style="flex: 2;"></div>
+                    <div style="flex: 2;"><strong>Item</strong></div>
+                    <div style="flex: 1;"><strong>Price</strong></div>
+                    <div style="flex: 1;"><strong></strong></div>
+                    <div style="flex: 1;"><strong></strong></div>
+                </div>
+                {% for item in wishlist_items %}
+                
+                    <div class="cart-row">
+                        <a style="flex: 2;" href="{% url 'product' item.product.id %}"><img class="row-image" src="{{item.product.imageURL}}" alt=""></a>
+                        <div style="flex: 2;"><p>{{item.product.name}}</p></div>
+                        <div style="flex: 1;"><P>{{item.product.price|floatformat:2}}$</P></div>
+                        <button style="flex: 1;" data-product={{item.product.id}} data-action="add" class="updatecart cart"><img src="{% static 'images/addcart.png' %}" alt="" width="30px"></button>
+                        <button style="flex: 1;" data-product={{item.product.id}} data-action="delete" class="btn-delete wishitem"><img src="{% static 'images/trash.png' %}" alt="" width="30px"></button>
+                    </div>
+                
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+</body> -->
+</html>
+<style>
+    button{
+        text-decoration: none !important;
+        background: none !important;
+        border: none !important;
+    }
+</style>
+    
+{% endblock content %}

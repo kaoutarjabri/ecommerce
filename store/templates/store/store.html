@@ -1,0 +1,96 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+{% include 'store/navbar.html' %}
+
+<!-- <div>
+    <img src="{% static 'images/runbest.png' %}" alt="" width="100%">
+</div> -->
+
+<div class="btn-group" role="group" aria-label="Categories">
+    <!-- <a href="{% url 'store' %}" class="btn btn-primary {% if not selected_category %}active{% endif %}">All</a> -->
+    {% for category in categories %}
+    <div class="btn-category">
+        <a href="{% url 'store' %}?category={{ category.name }}"><img src="{{category.imageURL}}" alt="" class="img-category"></a>
+        
+        <a href="{% url 'store' %}?category={{ category.name }}">{{ category.name }}</a>
+    </div>
+    {% endfor %}
+</div>
+<div class="store-container">
+
+        {% for product in products %}
+        
+            <div class="col">
+                <a  href="{% url 'product' product.id %}">
+                    <div class="thumbnail">
+                        <img class="img-product" src="{{product.imageURL}}" alt="">
+                        <!-- <a href="" class="wishitem" data-product={{product.id}} data-action="add"><img src="{% static 'images/heart-solid.svg' %}" alt="" width="20px"></a> -->
+                    </div>
+                </a>
+                    <div class="box-store product">
+                        <h4 style="float: right; color:red;">{{product.price|floatformat:2}}$</h4>
+                        <h6 style="font-size: large;"><strong>{{product.name}}</strong></h6>
+                        <hr>
+                        <p>{{product.description|slice:":100" }}</p>
+                        {% if user.is_authenticated %}
+                        <button data-product={{product.id}} data-action="add" class="updatecart">Add to cart</button>
+                        {%else%}
+                        <a href="{% url 'login' %}" ><button class="updatecart">Add to cart</button></a>
+                        {%endif%}
+                    
+                    </div>
+                
+            </div>
+        
+        {% endfor %}
+    <!-- </div> -->
+</div>
+
+<style>
+.updatecart {
+    margin: 10px;
+    padding: 5px;
+    background-color: rgb(190, 131, 49);
+    border-radius: 10px;
+
+}
+.btn-group {
+  display: flex;
+  white-space: nowrap; /* prevent line breaks */
+  overflow-x: auto; /* enable horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  scrollbar-width: none; /* hide scrollbar in modern browsers */
+  -ms-overflow-style: none; /* hide scrollbar in older versions of IE */
+}
+
+.btn-group::-webkit-scrollbar {
+  display: none; /* hide scrollbar in WebKit browsers */
+}
+
+.btn-group > * {
+    font-size: xx-large;
+    display: inline-block;
+    margin: 10px;
+}
+
+.btn-group > *:last-child {
+  margin-right: 0;
+}
+.btn-category{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.img-category{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+
+
+</style>
+
+{% endblock content %}
+
